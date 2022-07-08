@@ -18,8 +18,8 @@ public class SlangWordApp {
     /**
      * @param args the command line arguments
      */
-    
     private static Service service;
+
     //private Service service;
     public static void printMenu(String[] options) {
         for (String option : options) {
@@ -91,11 +91,11 @@ public class SlangWordApp {
             }
         }
     }
-    
+
     public static void option1() {
         Scanner myObj = new Scanner(System.in);
         System.out.println("Enter key slang word: ");
-        
+
         String[][] result = null;
         String slangString = myObj.nextLine();
 
@@ -107,13 +107,13 @@ public class SlangWordApp {
         } else {
             System.out.println("Not found!");
         }
-        
+
     }
 
     private static void option2() {
         Scanner myObj = new Scanner(System.in);
         System.out.println("Enter key definition: ");
-        
+
         String[][] result = null;
         String slangString = myObj.nextLine();
 
@@ -128,7 +128,16 @@ public class SlangWordApp {
     }
 
     private static void option3() {
-        System.out.println("Thanks for choosing option 3");
+        String[][] result = null;
+        result = Service.readHistory();
+        if (result != null) {
+            for (int i = 0; i < result.length; i++) {
+                System.out.println(Arrays.toString(result[i]));
+            }
+        } else {
+            System.out.println("Not found!");
+        }
+        
     }
 
     private static void option4() {

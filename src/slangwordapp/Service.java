@@ -6,6 +6,7 @@
 package slangwordapp;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +27,7 @@ public class Service {
     private int sizeMap;
     private String FILE_SLANGWORD = "slang.txt";
     private String FILE_ORIGINAL_SLANGWORD = "slang-root.txt";
-    private String FILE_HISTORY = "history.txt";
+    private static String FILE_HISTORY = "history.txt";
 
     Service() {
         try {
@@ -164,6 +165,14 @@ public class Service {
     public static String[][] searchSlangWord(String key) {
         String[][] tempStringses = null;
         tempStringses = obj.getMeaning(key);
+        try {
+            for (int j = 0; j < tempStringses.length; j++) {
+                obj.saveHistory(tempStringses[j][1], tempStringses[j][2]);
+            }
+        } catch (Exception e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
         return tempStringses;
     }
 
@@ -194,7 +203,54 @@ public class Service {
     public static String[][] searchDefinition(String key) {
         String[][] tempStringses = null;
         tempStringses = obj.findDefinition(key);
+        try {
+            for (int j = 0; j < tempStringses.length; j++) {
+                obj.saveHistory(tempStringses[j][1], tempStringses[j][2]);
+            }
+        } catch (Exception e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
         return tempStringses;
+    }
+
+    public void saveHistory(String slag, String meaning) throws Exception {
+        // String file = "history.txt";
+        File file1 = new File(FILE_HISTORY);
+        FileWriter fr = new FileWriter(file1, true);
+        fr.write(slag + "`" + meaning + "\n");
+        fr.close();
+    }
+
+    public static String[][] readHistory() {
+        List<String> historySlag = new ArrayList<>();
+        List<String> historyDefinition = new ArrayList<>();
+        try {
+            Scanner scanner = new Scanner(new File(FILE_HISTORY));
+            scanner.useDelimiter("`");
+            String temp = scanner.next();
+            String[] part = scanner.next().split("\n");
+            historySlag.add(temp);
+            historyDefinition.add(part[0]);
+            while (scanner.hasNext()) {
+                temp = part[1];
+                part = scanner.next().split("\n");
+                historySlag.add(temp);
+                historyDefinition.add(part[0]);
+            }
+            scanner.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        int size = historySlag.size();
+        String s[][] = new String[size][3];
+        for (int i = 0; i < size; i++) {
+            s[size - i - 1][0] = String.valueOf(size - i);
+            s[size - i - 1][1] = historySlag.get(i);
+            s[size - i - 1][2] = historyDefinition.get(i);
+        }
+        return s;
     }
 
 }
