@@ -141,7 +141,12 @@ public class SlangWordApp {
     }
 
     private static void option4() {
-        System.out.println("Thanks for choosing option 4");
+       Scanner myObj = new Scanner(System.in);
+       System.out.println("Input key: ");
+       String slag = myObj.nextLine();
+       System.out.println("Input mean: ");
+       String meaning = myObj.nextLine();
+       Service.addSlangWord(slag, meaning);
     }
 
     private static void option5() {
@@ -153,7 +158,12 @@ public class SlangWordApp {
     }
 
     private static void option7() {
-        System.out.println("Thanks for choosing option 7");
+        try {
+           System.out.println("Reset the original slang words list successfull!");
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     private static void option8() {

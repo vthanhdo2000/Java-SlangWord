@@ -253,4 +253,57 @@ public class Service {
         return s;
     }
 
+    public void addNew(String slag, String meaning) {
+        List<String> meaningList = new ArrayList<>();
+        meaningList.add(meaning);
+        sizeMap++;
+        map.put(slag, meaningList);
+        this.saveFile(FILE_SLANGWORD);
+    }
+
+    public void addDuplicate(String slag, String meaning) {
+        List<String> meaningList = map.get(slag);
+        meaningList.add(meaning);
+        sizeMap++;
+        map.put(slag, meaningList);
+        this.saveFile(FILE_SLANGWORD);
+    }
+
+    public void addOverwrite(String slag, String meaning) {
+        List<String> meaningList = map.get(slag);
+        meaningList.set(0, meaning);
+        map.put(slag, meaningList);
+        this.saveFile(FILE_SLANGWORD);
+    }
+
+    public boolean checkSlang(String slag) {
+        for (String keyIro : map.keySet()) {
+            if (keyIro.equals(slag)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public static void addSlangWord(String slag, String meaning) {
+        if (obj.checkSlang(slag)) {
+            Scanner myObj = new Scanner(System.in);
+            System.out.println("Slang word already exist");
+            System.out.println("1- Add Overwrite");
+            System.out.println("2- Add Duplicate");
+            System.out.print("Choose your option : ");
+            int option = myObj.nextInt();
+            if (option == 1) {
+                obj.addOverwrite(slag, meaning);
+                System.out.println("Add Overwrite Successfull");
+            }else {
+                obj.addDuplicate(slag, meaning);
+                System.out.println("Add Duplicate Successfull");
+            }
+        }else {
+            obj.addNew(slag, meaning);
+            System.out.println("Add Slang Successfull");
+        }
+    }
+
 }
