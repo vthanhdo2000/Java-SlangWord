@@ -17,6 +17,9 @@ public class SlangWordApp {
     /**
      * @param args the command line arguments
      */
+    
+    private static Service service;
+    //private Service service;
     public static void printMenu(String[] options) {
         for (String option : options) {
             System.out.println(option);
@@ -26,10 +29,11 @@ public class SlangWordApp {
 
     public static void main(String[] args) {
 
-        Service service = Service.getInstance();
+        Service.getInstance();
 
         // TODO code application logic here
-        String[] options = {"1- Search by slang word",
+        String[] options = {
+            "1- Search by slang word",
             "2- Search by definition",
             "3- Display history, list of searched slang words",
             "4- Add a new slang words",
@@ -86,13 +90,25 @@ public class SlangWordApp {
             }
         }
     }
+    
+    public static void option1() {
+        Scanner myObj = new Scanner(System.in);
+        System.out.println("Enter key slang word: ");
+        
+        String[][] result = null;
+        String slangString = myObj.nextLine();
 
-    private static void option1() {
-        Scanner myObj = new Scanner(System.in);  // Create a Scanner object
-        System.out.println("Enter username");
-
-        String userName = myObj.nextLine();  // Read user input
-        System.out.println("Username is: " + userName);
+        result = Service.searchSlangWord(slangString);
+        
+        System.out.println(result);
+        if (result != null) {
+            for (int i = 0; i < result.length; i++) {
+                System.out.println(result[i]);
+            }
+        } else {
+            System.out.println("Not found!");
+        }
+        
     }
 
     private static void option2() {

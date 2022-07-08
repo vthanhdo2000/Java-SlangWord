@@ -19,7 +19,6 @@ import java.util.TreeMap;
  * @author acer
  */
 public class Service {
-
     private TreeMap<String, List<String>> map = new TreeMap<>();
     private static Service obj = new Service();
     private int sizeMap;
@@ -40,7 +39,7 @@ public class Service {
             e.printStackTrace();
         }
     }
-
+    
     public static Service getInstance() {
         if (obj == null) {
             synchronized (Service.class) {
@@ -52,7 +51,7 @@ public class Service {
         return obj;
     }
 
-    void readFile(String file) throws Exception {
+    public void readFile(String file) throws Exception {
         map.clear();
         String slag = null;
         Scanner scanner = new Scanner(new File(file));
@@ -75,7 +74,7 @@ public class Service {
                 //System.out.println(part[0]);
                 String[] d = (part[0]).split("\\|");
                 //for (int ii = 0; ii < d.length; ii++) {
-                    //System.out.println(d[ii]);
+                //System.out.println(d[ii]);
                 //}
                 Collections.addAll(meaning, d);
                 sizeMap += d.length - 1;
@@ -90,7 +89,7 @@ public class Service {
         scanner.close();
     }
 
-    void saveFile(String file) {
+    public void saveFile(String file) {
         try {
             PrintWriter printWriter = new PrintWriter(new File(file));
             StringBuilder stringBuilder = new StringBuilder();
@@ -158,6 +157,13 @@ public class Service {
             s[i][2] = listMeaning.get(i);
         }
         return s;
+    }
+
+    public static String[][] searchSlangWord(String key) {
+        String[][] tempStringses = null;
+        tempStringses = obj.getMeaning(key);
+        
+        return tempStringses;
     }
 
 }
