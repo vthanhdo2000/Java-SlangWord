@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeMap;
@@ -19,6 +20,7 @@ import java.util.TreeMap;
  * @author acer
  */
 public class Service {
+
     private TreeMap<String, List<String>> map = new TreeMap<>();
     private static Service obj = new Service();
     private int sizeMap;
@@ -39,7 +41,7 @@ public class Service {
             e.printStackTrace();
         }
     }
-    
+
     public static Service getInstance() {
         if (obj == null) {
             synchronized (Service.class) {
@@ -162,7 +164,36 @@ public class Service {
     public static String[][] searchSlangWord(String key) {
         String[][] tempStringses = null;
         tempStringses = obj.getMeaning(key);
-        
+        return tempStringses;
+    }
+
+    public String[][] findDefinition(String query) {
+        // Get all slang contain key
+        List<String> keyList = new ArrayList<>();
+        List<String> meaningList = new ArrayList<>();
+        for (Entry<String, List<String>> entry : map.entrySet()) {
+            List<String> meaning = entry.getValue();
+            for (int i = 0; i < meaning.size(); i++) {
+                if (meaning.get(i).toLowerCase().contains(query.toLowerCase())) {
+                    keyList.add(entry.getKey());
+                    meaningList.add(meaning.get(i));
+                }
+            }
+        }
+        int size = keyList.size();
+        String s[][] = new String[size][3];
+
+        for (int i = 0; i < size; i++) {
+            s[i][0] = String.valueOf(i);
+            s[i][1] = keyList.get(i);
+            s[i][2] = meaningList.get(i);
+        }
+        return s;
+    }
+
+    public static String[][] searchDefinition(String key) {
+        String[][] tempStringses = null;
+        tempStringses = obj.findDefinition(key);
         return tempStringses;
     }
 

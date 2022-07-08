@@ -6,6 +6,7 @@
 package slangwordapp;
 
 import static java.lang.System.exit;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -99,11 +100,9 @@ public class SlangWordApp {
         String slangString = myObj.nextLine();
 
         result = Service.searchSlangWord(slangString);
-        
-        System.out.println(result);
         if (result != null) {
             for (int i = 0; i < result.length; i++) {
-                System.out.println(result[i]);
+                System.out.println(Arrays.toString(result[i]));
             }
         } else {
             System.out.println("Not found!");
@@ -112,7 +111,20 @@ public class SlangWordApp {
     }
 
     private static void option2() {
-        System.out.println("Thanks for choosing option 2");
+        Scanner myObj = new Scanner(System.in);
+        System.out.println("Enter key definition: ");
+        
+        String[][] result = null;
+        String slangString = myObj.nextLine();
+
+        result = Service.searchDefinition(slangString);
+        if (result != null) {
+            for (int i = 0; i < result.length; i++) {
+                System.out.println(Arrays.toString(result[i]));
+            }
+        } else {
+            System.out.println("Not found!");
+        }
     }
 
     private static void option3() {
