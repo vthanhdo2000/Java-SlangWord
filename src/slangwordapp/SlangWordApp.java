@@ -154,7 +154,7 @@ public class SlangWordApp {
     }
 
     private static void option6() {
-        System.out.println("Thanks for choosing option 6");
+        Service.deleteSlangWord();
     }
 
     private static void option7() {

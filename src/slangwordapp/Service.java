@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
@@ -166,8 +167,13 @@ public class Service {
         String[][] tempStringses = null;
         tempStringses = obj.getMeaning(key);
         try {
-            for (int j = 0; j < tempStringses.length; j++) {
-                obj.saveHistory(tempStringses[j][1], tempStringses[j][2]);
+            if (tempStringses != null) {
+                for (int j = 0; j < tempStringses.length; j++) {
+                    obj.saveHistory(tempStringses[j][1], tempStringses[j][2]);
+                }
+            }
+            else {
+                return null;
             }
         } catch (Exception e1) {
             // TODO Auto-generated catch block
@@ -284,7 +290,7 @@ public class Service {
         }
         return false;
     }
-    
+
     public static void addSlangWord(String slag, String meaning) {
         if (obj.checkSlang(slag)) {
             Scanner myObj = new Scanner(System.in);
@@ -296,14 +302,51 @@ public class Service {
             if (option == 1) {
                 obj.addOverwrite(slag, meaning);
                 System.out.println("Add Overwrite Successfull");
-            }else {
+            } else {
                 obj.addDuplicate(slag, meaning);
                 System.out.println("Add Duplicate Successfull");
             }
-        }else {
+        } else {
             obj.addNew(slag, meaning);
             System.out.println("Add Slang Successfull");
         }
     }
 
+    public void deleteSlang(String slag) {
+        List<String> meaningList = map.get(slag);
+        if (meaningList.size() == 1) {
+            map.remove(slag);
+            sizeMap--;
+            this.saveFile(FILE_SLANGWORD);
+        } else {
+            System.out.println("Sorry can't detele!!!");
+        }
+    }
+
+    public static void deleteSlangWord() {
+        Scanner myObj = new Scanner(System.in);
+        System.out.println("Input key: ");
+        String[][] result = null;
+        String slangString = myObj.nextLine();
+
+        result = Service.searchSlangWord(slangString);
+        if (result != null) {
+            try {
+                for (int i = 0; i < result.length; i++) {
+                    System.out.println(Arrays.toString(result[i]));
+                }
+                System.out.println("You really want to delete: Yes || No");
+                String checkString = myObj.nextLine();
+                if (checkString.toLowerCase().equals("y") || checkString.toLowerCase().equals("yes")) {
+                    obj.deleteSlang(slangString);
+                }
+                System.out.println("Deleted Successfull");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            System.out.println("Not found slang words!");
+        }
+    }
 }
