@@ -105,7 +105,7 @@ public class SlangWordApp {
                 System.out.println(Arrays.toString(result[i]));
             }
         } else {
-            System.out.println("Not found!");
+            System.out.println("Not found slang!");
         }
 
     }
@@ -150,7 +150,7 @@ public class SlangWordApp {
     }
 
     private static void option5() {
-        System.out.println("Thanks for choosing option 5");
+       Service.updateSlangWords();
     }
 
     private static void option6() {

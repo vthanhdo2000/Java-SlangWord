@@ -325,7 +325,7 @@ public class Service {
 
     public static void deleteSlangWord() {
         Scanner myObj = new Scanner(System.in);
-        System.out.println("Input key: ");
+        System.out.println("Input slang: ");
         String[][] result = null;
         String slangString = myObj.nextLine();
 
@@ -349,4 +349,31 @@ public class Service {
             System.out.println("Not found slang words!");
         }
     }
+    
+    public static void updateSlangWords() {
+        Scanner myObj = new Scanner(System.in);
+        System.out.println("Input slang: ");
+        String[][] result = null;
+        String slangString = myObj.nextLine();
+        
+        result = Service.searchSlangWord(slangString);
+        if (result != null) {
+            try {
+                for (int i = 0; i < result.length; i++) {
+                    System.out.println(Arrays.toString(result[i]));
+                }
+                System.out.println("update meaning : ");
+                String slangupdateString = myObj.nextLine();
+                obj.addOverwrite(slangString, slangupdateString);
+                System.out.println("Update Successfull");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            System.out.println("Not found slang words!");
+        }
+        
+    }
+    
 }
