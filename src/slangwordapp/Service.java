@@ -378,7 +378,7 @@ public class Service {
         // Random a number
         int minimun = 0;
         int maximun = map.size() - 1;
-        int rand =  (minimun + (int) (Math.random() * maximun));
+        int rand = (minimun + (int) (Math.random() * maximun));
         // Get slang meaning
         String s[] = new String[2];
         int index = 0;
@@ -393,7 +393,7 @@ public class Service {
         }
         return s;
     }
-    
+
     public static void randomSlangWords() {
         String result[] = null;
         result = obj.random();
@@ -403,5 +403,34 @@ public class Service {
         } else {
             System.out.println("Not found!");
         }
+    }
+
+    public String[] quizSlang() {
+        String s[] = new String[4];
+        String[] slangRandom = this.random();
+        s[0] = slangRandom[0];
+        int rand = (1 + (int) (Math.random() * 4));
+        s[rand] = slangRandom[1];
+        s[5] = slangRandom[1];
+        for (int i = 1; i <= 4; i++) {
+            if (rand == i) {
+                continue;
+            } else {
+                String[] slangRand = this.random();
+                while (slangRand[0] == s[0]) {
+                    slangRand = this.random();
+                }
+                s[i] = slangRand[1];
+            }
+        }
+        for (int i = 1; i <= s.length ; i++) {
+            System.out.println(s[i]);
+        }
+        
+        return s;
+    }
+    
+    public static void quizSlangWords() {
+        obj.quizSlang();
     }
 }

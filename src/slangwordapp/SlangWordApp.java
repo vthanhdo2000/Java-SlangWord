@@ -176,7 +176,12 @@ public class SlangWordApp {
     }
 
     private static void option9() {
-        System.out.println("Thanks for choosing option 9");
+        try {
+           Service.quizSlangWords();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     private static void option10() {
