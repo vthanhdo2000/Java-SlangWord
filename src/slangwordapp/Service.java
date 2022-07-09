@@ -171,8 +171,7 @@ public class Service {
                 for (int j = 0; j < tempStringses.length; j++) {
                     obj.saveHistory(tempStringses[j][1], tempStringses[j][2]);
                 }
-            }
-            else {
+            } else {
                 return null;
             }
         } catch (Exception e1) {
@@ -349,13 +348,13 @@ public class Service {
             System.out.println("Not found slang words!");
         }
     }
-    
+
     public static void updateSlangWords() {
         Scanner myObj = new Scanner(System.in);
         System.out.println("Input slang: ");
         String[][] result = null;
         String slangString = myObj.nextLine();
-        
+
         result = Service.searchSlangWord(slangString);
         if (result != null) {
             try {
@@ -373,7 +372,36 @@ public class Service {
         } else {
             System.out.println("Not found slang words!");
         }
-        
+    }
+
+    public String[] random() {
+        // Random a number
+        int minimun = 0;
+        int maximun = map.size() - 1;
+        int rand =  (minimun + (int) (Math.random() * maximun));
+        // Get slang meaning
+        String s[] = new String[2];
+        int index = 0;
+        for (String key : map.keySet()) {
+            // System.out.println(key);
+            if (index == rand) {
+                s[0] = key;
+                s[1] = map.get(key).get(0);
+                break;
+            }
+            index++;
+        }
+        return s;
     }
     
+    public static void randomSlangWords() {
+        String result[] = null;
+        result = obj.random();
+        if (result != null) {
+            System.out.println("Slang: " + result[0]);
+            System.out.println("Meaning: " + result[1]);
+        } else {
+            System.out.println("Not found!");
+        }
+    }
 }

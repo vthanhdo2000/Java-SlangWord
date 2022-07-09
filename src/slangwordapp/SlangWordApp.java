@@ -159,7 +159,7 @@ public class SlangWordApp {
 
     private static void option7() {
         try {
-           System.out.println("Reset the original slang words list successfull!");
+           Service.randomSlangWords();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -167,7 +167,12 @@ public class SlangWordApp {
     }
 
     private static void option8() {
-        System.out.println("Thanks for choosing option 8");
+        try {
+           Service.randomSlangWords();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     private static void option9() {
