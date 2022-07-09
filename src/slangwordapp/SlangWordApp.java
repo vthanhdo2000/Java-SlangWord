@@ -185,7 +185,12 @@ public class SlangWordApp {
     }
 
     private static void option10() {
-        System.out.println("Thanks for choosing option 10");
+         try {
+           Service.quizDefinitionWords();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
 }

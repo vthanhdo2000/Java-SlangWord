@@ -406,7 +406,7 @@ public class Service {
     }
 
     public String[] quizSlang() {
-        String s[] = new String[4];
+        String s[] = new String[6];
         String[] slangRandom = this.random();
         s[0] = slangRandom[0];
         int rand = (1 + (int) (Math.random() * 4));
@@ -423,14 +423,71 @@ public class Service {
                 s[i] = slangRand[1];
             }
         }
-        for (int i = 1; i <= s.length ; i++) {
-            System.out.println(s[i]);
+        return s;
+    }
+
+    public static void quizSlangWords() {
+        String[] myStringArray = null;
+        String result[] = null;
+        myStringArray = obj.quizSlang();
+        result = obj.random();
+
+        System.out.println("What is the meaning of this '" + result[0] + "'?");
+        System.out.println("1- " + result[1]);
+        for (int i = 2; i <= 4; i++) {
+            System.out.println(i + "- " + myStringArray[i]);
         }
-        
+        System.out.println("Choose the answer: ");
+        Scanner myObj = new Scanner(System.in);
+        int answer = myObj.nextInt();
+        if (answer == 1) {
+            System.out.println("You were right");
+        } else {
+            System.out.println("You were wrong!");
+        }
+    }
+
+    public String[] quizDefinition() {
+        String s[] = new String[6];
+        String[] slangRandom = this.random();
+        s[0] = slangRandom[1];
+        int rand = (1 + (int) (Math.random() * 4));
+        s[rand] = slangRandom[0];
+        s[5] = slangRandom[0];
+        for (int i = 1; i <= 4; i++) {
+            if (rand == i) {
+                continue;
+            } else {
+                String[] slangRand = this.random();
+                while (slangRand[0] == s[0]) {
+                    slangRand = this.random();
+                }
+                s[i] = slangRand[0];
+            }
+        }
         return s;
     }
     
-    public static void quizSlangWords() {
-        obj.quizSlang();
+    public static void quizDefinitionWords() {
+        String myStringArray[] = null;
+        String answerStringArray[] = null;
+        String result[] = null;
+        myStringArray = obj.quizSlang();
+        result = obj.random();
+
+        System.out.println("What is the Definition of this '" + result[1] + "'?");
+        System.out.println("1- " + result[0]);
+        for (int i = 2; i <= 4; i++) {
+            myStringArray = obj.random();
+            System.out.println(i +"- " + myStringArray[0]);        
+        }
+        System.out.println("Choose the answer: ");
+        Scanner myObj = new Scanner(System.in);
+        int answer = myObj.nextInt();
+        if (answer == 1) {
+            System.out.println("You were right");
+        } else {
+            System.out.println("You were wrong!");
+        }
     }
 }
